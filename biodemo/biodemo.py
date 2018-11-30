@@ -21,6 +21,9 @@ from Bio import SeqIO
 EXIT_FILE_IO_ERROR = 1
 EXIT_COMMAND_LINE_ERROR = 2
 EXIT_FASTA_FILE_ERROR = 3
+#new change
+DEFAULT_MAX_LEN = 10000
+
 DEFAULT_MIN_LEN = 0
 DEFAULT_VERBOSE = False
 HEADER = 'FILENAME\tNUMSEQ\tTOTAL\tMIN\tAVG\tMAX'
@@ -58,6 +61,17 @@ def parse_args():
     '''
     description = 'Read one or more FASTA files, compute simple stats for each file'
     parser = ArgumentParser(description=description)
+    #new mod
+    parser.add_argument(
+        '--maxlen',
+        metavar='N',
+        type=int,
+        default=DEFAULT_MAX_LEN,
+        help='Minimum length sequence to include in stats (default {})'.format(
+            DEFAULT_MAX_LEN))
+
+    
+    
     parser.add_argument(
         '--minlen',
         metavar='N',
@@ -118,7 +132,7 @@ class FastaStats(object):
                 self.num_seqs, self.num_bases, self.min_len, self.max_len,
                 self.average)
 
-    def from_file(self, fasta_file, minlen_threshold=DEFAULT_MIN_LEN):
+    def from_file(self, fasta_file, minlen_threshold=DEFAULT_MIN_LEN, maxlen_threshold=DEFAULT_MAX_LEN):
         '''Compute a FastaStats object from an input FASTA file.
 
         Arguments:
@@ -134,7 +148,8 @@ class FastaStats(object):
         min_len = max_len = None
         for seq in SeqIO.parse(fasta_file, "fasta"):
             this_len = len(seq)
-            if this_len >= minlen_threshold:
+            #w i am lazy so will think AND  
+            if this_len >= minlen_threshold and this_len <= maxlen_threshold:
                 if num_seqs == 0:
                     min_len = max_len = this_len
                 else:
@@ -197,11 +212,12 @@ def process_files(options):
                 exit_with_error(str(exception), EXIT_FILE_IO_ERROR)
             else:
                 with fasta_file:
-                    stats = FastaStats().from_file(fasta_file, options.minlen)
+                    #w oo this is where the class is instantiated
+                    stats = FastaStats().from_file(fasta_file, options.minlen, options.maxlen)
                     print(stats.pretty(fasta_filename))
     else:
         logging.info("Processing FASTA file from stdin")
-        stats = FastaStats().from_file(sys.stdin, options.minlen)
+        stats = FastaStats().from_file(sys.stdin, options.minlen, options.maxlen)
         print(stats.pretty("stdin"))
 
 

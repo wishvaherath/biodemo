@@ -143,6 +143,11 @@ parse_args $@
 # 2. Change to test directory
 cd $test_data_dir
 # 2. Run tests
+
+#new test
+test_stdout_exit "$test_program --maxlen 200 two_sequence.fasta" two_sequence.fasta.maxlen_200.expected 0
+
+
 test_stdout_exit "$test_program one_sequence.fasta" one_sequence.fasta.expected 0
 test_stdout_exit "$test_program two_sequence.fasta" two_sequence.fasta.expected 0
 test_stdout_exit "$test_program --minlen 200 two_sequence.fasta" two_sequence.fasta.minlen_200.expected 0
