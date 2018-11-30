@@ -227,6 +227,7 @@ def init_logging(log_filename):
         logging.info('command line: %s', ' '.join(sys.argv))
 
 
+def main():
     "Orchestrate the execution of the program"
     options = parse_args()
     init_logging(options.log)
