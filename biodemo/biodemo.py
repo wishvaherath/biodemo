@@ -17,7 +17,7 @@ import logging
 import pkg_resources
 from Bio import SeqIO
 
-
+#w define the error code at the onset...
 EXIT_FILE_IO_ERROR = 1
 EXIT_COMMAND_LINE_ERROR = 2
 EXIT_FASTA_FILE_ERROR = 3
@@ -25,6 +25,10 @@ DEFAULT_MIN_LEN = 0
 DEFAULT_VERBOSE = False
 HEADER = 'FILENAME\tNUMSEQ\tTOTAL\tMIN\tAVG\tMAX'
 PROGRAM_NAME = "biodemo"
+
+
+
+#w single version 
 
 
 try:
@@ -223,7 +227,6 @@ def init_logging(log_filename):
         logging.info('command line: %s', ' '.join(sys.argv))
 
 
-def main():
     "Orchestrate the execution of the program"
     options = parse_args()
     init_logging(options.log)
