@@ -1,6 +1,6 @@
 [![travis](https://travis-ci.org/wishvaherath/biodemo.svg?branch=master)](https://travis-ci.org/wishvaherath/biodemo)
 
-[![codecov](https://codecov.io/github/d-cameron/biodaniel/branch/master/graphs/badge.svg)](https://codecov.io/github/wishvaherath/biodemo)
+[![codecov](https://codecov.io/github/wishvaherath/biodemo/branch/master/graphs/badge.svg)](https://codecov.io/github/wishvaherath/biodemo)
 
 # Overview 
 
